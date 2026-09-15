@@ -51,7 +51,7 @@ async function run() {
           "mens_watches",
           "womens_watches",
           "three_pieces",
-          "beauty_and_health",
+          "cosmetics",
         ];
 
         let foundProduct = null;
