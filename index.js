@@ -124,6 +124,36 @@ async function run() {
       }
     });
 
+    // Featured Women's Watch get API
+    app.get ('/api/featured-womens-watch', async (req, res) => {
+      try {
+        const featuredProduct = await womensWatchCollection.find().limit(4).toArray();
+        if (!featuredProduct) {
+          return res.status(404).json({ success: false, message: "No featured product found" });
+        }
+        res.status(200).json({ success: true, data: featuredProduct });
+      } catch (error) {
+        console.error("Error fetching featured product:", error);
+        res.status(500).json({ success: false, message: "Failed to fetch featured product" });
+      }
+    });
+
+    // Featured 3-Piece Dress get API
+    app.get ('/api/featured-three-piece', async (req, res) => {
+      try {
+        const featuredProduct = await threePieceCollection.find().limit(4).toArray();
+        if (!featuredProduct) {
+          return res.status(404).json({ success: false, message: "No featured product found" });
+        }
+        res.status(200).json({ success: true, data: featuredProduct });
+      } catch (error) {
+        console.error("Error fetching featured product:", error);
+        res.status(500).json({ success: false, message: "Failed to fetch featured product" });
+      }
+    });
+
+
+
     // 2. Women's Watch POST API
     app.post("/api/products/womens-watch", async (req, res) => {
       try {
