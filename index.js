@@ -56,8 +56,8 @@ app.get("/api/products/single/:id", async (req, res) => {
     if (!ObjectId.isValid(id)) {
       return res.status(400).json({ success: false, message: "Invalid ID format" });
     }
-
-    const collections = ["mens_watches", "womens_watches", "three_pieces", "cosmetics", "kids_learning"];
+    
+    const collections = ["mens_watches", "womens_watches", "three_pieces", "cosmetics", "kids_learning", "trimmer"];
     let foundProduct = null;
 
     for (const colName of collections) {
@@ -93,7 +93,7 @@ app.get("/api/products/collection/:collectionName", async (req, res) => {
   }
 });
 
-// ---------------- NEW FEATURED APIs ----------------
+// ---------------- NEW FEATURED APIs ---------------
 
 // Featured Men's Watch
 app.get('/api/featured-mens-watch', async (req, res) => {
@@ -177,6 +177,26 @@ app.post("/api/products/cosmetics", async (req, res) => {
   try {
     const productData = { ...req.body, createdAt: new Date() };
     const result = await db.collection("cosmetics").insertOne(productData);
+    res.status(201).json({ success: true, insertedId: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/products/kids-learning", async (req, res) => {
+  try {
+    const productData = { ...req.body, createdAt: new Date() };
+    const result = await db.collection("kids_learning").insertOne(productData);
+    res.status(201).json({ success: true, insertedId: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/products/trimmer", async (req, res) => {
+  try {
+    const productData = { ...req.body, createdAt: new Date() };
+    const result = await db.collection("trimmer").insertOne(productData);
     res.status(201).json({ success: true, insertedId: result.insertedId });
   } catch (error) {
     res.status(500).json({ error: error.message });
