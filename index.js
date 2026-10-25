@@ -117,11 +117,11 @@ app.get('/api/featured-womens-watch', async (req, res) => {
   }
 });
 
-// Featured 3-Piece
-app.get('/api/featured-three-piece', async (req, res) => {
+// Featured Trimmer
+app.get('/api/featured-trimmer', async (req, res) => {
   try {
-    const threePieceCollection = db.collection("three_pieces");
-    const featuredProduct = await threePieceCollection.find({}).limit(4).toArray();
+    const trimmerCollection = db.collection("trimmer");
+    const featuredProduct = await trimmerCollection.find({}).limit(4).toArray();
     res.status(200).json({ success: true, data: featuredProduct });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
