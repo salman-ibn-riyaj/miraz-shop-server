@@ -57,7 +57,7 @@ app.get("/api/products/single/:id", async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid ID format" });
     }
     
-    const collections = ["mens_watches", "womens_watches", "three_pieces", "cosmetics", "kids_learning", "trimmer"];
+    const collections = ["mens_watches", "womens_watches", "three_pieces", "cosmetics", "kids_learning", "trimmer", "wallets"];
     let foundProduct = null;
 
     for (const colName of collections) {
@@ -197,6 +197,16 @@ app.post("/api/products/trimmer", async (req, res) => {
   try {
     const productData = { ...req.body, createdAt: new Date() };
     const result = await db.collection("trimmer").insertOne(productData);
+    res.status(201).json({ success: true, insertedId: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/products/wallets", async (req, res) => {
+  try {
+    const productData = { ...req.body, createdAt: new Date() };
+    const result = await db.collection("wallets").insertOne(productData);
     res.status(201).json({ success: true, insertedId: result.insertedId });
   } catch (error) {
     res.status(500).json({ error: error.message });
