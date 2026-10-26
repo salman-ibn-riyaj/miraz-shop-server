@@ -139,6 +139,16 @@ app.get('/api/featured-cosmetics', async (req, res) => {
   }
 });
 
+app.get('/api/featured-wallets', async (req, res) => {
+  try {
+    const walletsCollection = db.collection("wallets");
+    const featuredProduct = await walletsCollection.find({}).limit(4).toArray();
+    res.status(200).json({ success: true, data: featuredProduct });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 
 
 
